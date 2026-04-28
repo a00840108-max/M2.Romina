@@ -1,5 +1,15 @@
+volumes:
+  mysql_data:
+
+networks:
+  default:
+  dokploy-network:
+    external: true
+default mantiene la comunicacion interna entre gateway, php-api, python-ml y mysql.
+dokploy-network permite que Traefik alcance el gateway y sirva el trafico publico.
+Archivo docker-compose.yml completo y corregido
 services:
-    gateway:
+  gateway:
     build: ./gateway
     expose:
       - "3000"
@@ -16,7 +26,6 @@ services:
 
   php-api:
     build: ./php-api
-    container_name: miniscrum_php_api
     environment:
       DB_HOST: mysql
       DB_NAME: miniscrum
@@ -27,11 +36,9 @@ services:
 
   python-ml:
     build: ./python-ml
-    container_name: miniscrum_python_ml
 
   mysql:
     image: mysql:8.0
-    container_name: miniscrum_mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -40,10 +47,10 @@ services:
       - mysql_data:/var/lib/mysql
       - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
-    volumes:
-      mysql_data:
+volumes:
+  mysql_data:
 
-    networks:
-      default:
-      dokploy-network:
-        external: true
+networks:
+  default:
+  dokploy-network:
+    external: true
