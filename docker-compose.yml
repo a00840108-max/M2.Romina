@@ -43,9 +43,4 @@ volumes:
 networks:
   dokploy-network:
     external: true
-  mysql_data:
-
-networks:
-  default:
-  dokploy-network:
     external: true
