@@ -40,10 +40,10 @@ services:
       - mysql_data:/var/lib/mysql
       - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
-volumes:
-  mysql_data:
+    volumes:
+      mysql_data:
 
-networks:
-  default:
-  dokploy-network:
-    external: true
+    networks:
+      default:
+      dokploy-network:
+        external: true
