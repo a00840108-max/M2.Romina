@@ -1,13 +1,3 @@
-volumes:
-  mysql_data:
-
-networks:
-  default:
-  dokploy-network:
-    external: true
-default mantiene la comunicacion interna entre gateway, php-api, python-ml y mysql.
-dokploy-network permite que Traefik alcance el gateway y sirva el trafico publico.
-Archivo docker-compose.yml completo y corregido
 services:
   gateway:
     build: ./gateway
@@ -48,6 +38,11 @@ services:
       - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
 volumes:
+  mysql_data:
+
+networks:
+  dokploy-network:
+    external: true
   mysql_data:
 
 networks:
